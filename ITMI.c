@@ -15,84 +15,100 @@ int main(int argc, char** argv){
 	fgets(code, 261, stdin);
 	//if (file == NULL){
 	//	return 1;
-	//} else{
+	//}
 	while (1){
-		if (code[index] == '>'){
-			if (pointer < 254 ){
-			pointer++;
-			} else{
-				pointer = 0;
-			}
-			pointer++;
-		} if (code[index] == '<'){
-			if (pointer > 1 ){
-			pointer--;
-			} else {
-				pointer = 254;
-			}
-		} if (code[index] == '+'){
-			if (tape[pointer] > 255){
-			tape[pointer] = 0;
-			} else {
-				tape[pointer] = tape[pointer] + 1;
-			}
-		} if (code[index] == '*'){
-			if (tape[pointer] > 127){
-			tape[pointer] = 0;
-			} else {
-				tape[pointer] = tape[pointer]*2;
-			}
-		} if (code[index] == '-'){
-			if (tape[pointer] > 0){
-			tape[pointer]--;
-			} else {
-				tape[pointer] = 256;
-			}
-		} if (code[index] == '.'){
-			printf("%c", tape[pointer]);
-		} if (code[index] == ':'){
-			printf("%d \n", tape[pointer]);
-		} if (code[index] == ','){
-			aa=getchar();
-			tape[pointer] = (int)aa;
-		} if (code[index] == 'x'){
-			break;
-		} if (code[index] == '£'){
-			if (tape[pointer]  != 0){
-			return 0;
-			} 
-		} if (code[index] == '$'){
-			if (tape[pointer]  == 0){
-			return 0;
-			} 
-		} if (code[index] == '!'){
-			if (index < 260){
-			index = index + 2;
-			}
-		} if (code[index] == '@'){
-			if (index < 260){
-				if (tape[pointer]  == 0){
-					index = index + 2;
-				} 
-			}
-		} if (code[index] == '#'){
-			if (index < 260){
+		switch (code[index]){
+			case '>':
+				if (pointer < 255 ){
+					pointer++;
+				} else{
+					pointer = 0;
+				}
+				pointer++;
+				break;
+			case '<':
+				if (pointer > 0 ){
+					pointer--;
+				} else {
+					pointer = 255;
+				};
+				break;
+			case '+':
+				if (tape[pointer] > 255){
+					tape[pointer] = 0;
+				} else {
+					tape[pointer] += 1;
+				};
+				break;
+			case '*':
+				if (tape[pointer] > 127){
+					tape[pointer] = 0;
+				} else {
+					tape[pointer] *= 2;
+				};
+				break;
+			case '-':
+				if (tape[pointer] > 0){
+					tape[pointer]--;
+				} else {
+					tape[pointer] = 255;
+				};
+				break;
+			case '.':
+				printf("%c", tape[pointer]);
+				break;
+			case ':':
+				printf("%d \n", tape[pointer]);
+				break;
+			case ',':
+				tape[pointer] = (int)getchar();
+				break;
+			case 'x':
+				return 0;
+			case '£':
 				if (tape[pointer]  != 0){
+					return 0;
+				};
+				break;
+			case '$':
+				if (tape[pointer]  == 0){
+					return 0;
+				};
+				break;
+			case '!':
+				if (index < 260){
 					index = index + 2;
-				} 
-			}
-		} if (code[index] == '¢'){
-			if (tape[pointer] < 261){
-				index = tape[pointer];
-			}
-		} if (code[index] == '0'){
-			index = 0;
-		} 
+				};
+				break;
+			case '@':
+				if (index < 260){
+					if (tape[pointer]  == 0){
+						index += 1;
+					} 
+				};
+				break;
+			case '#':
+				if (index < 260){
+					if (tape[pointer]  != 0){
+						index += 1;
+					} 
+				};
+				break;
+			case '¢':
+				if (tape[pointer] < 261){
+					index = tape[pointer];
+				};
+				break;
+			case '0':
+				index = 0;
+				break;
+		};
+		// END SWITCH
 		if (index > 260){
 			index = 0;
 		} else {
-		index++;
-		} 
-	} return 0;
-	//}
+			index++;
+		}
+	};
+	return 0;
 }
